@@ -1,5 +1,6 @@
 package com.excample.jakarta.hello;
 
+import jakarta.faces.render.ResponseStateManager;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
@@ -53,15 +54,21 @@ public class ProductResource
       }
     }
 
-//    @PUT
-//    @Consumes(MediaType.APPLICATION_JSON)
-//    @Produces(MediaType.APPLICATION_JSON)
-//    public Response UpdateProduct(){
-//        try {
-//
-//        }
-//
-//    }
+    @PUT
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/Update/{oldName}/{NewName}/{NewPrice}")
+    public Response UpdateProduct(@PathParam("oldName") String oldName,@PathParam("NewName") String NewName,@PathParam("NewPrice") double NewPrice){
+        try {
+            productMannager.updateProduct(oldName,NewName,NewPrice);
+            return Response.status(Response.Status.CREATED).entity(productMannager.GetProductByName(NewName)).build();
+        }
+        catch (RuntimeException e){
+            return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
+        }
+
+
+    }
 
 
 }

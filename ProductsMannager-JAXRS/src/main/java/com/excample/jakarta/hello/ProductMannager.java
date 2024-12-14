@@ -7,6 +7,14 @@ public class ProductMannager {
 
     private static  List<Product> productList = new ArrayList<>();
 
+    static {
+        // Adding sample products to the list
+        productList.add(new Product("Product 1", 19.99, 1));
+        productList.add(new Product("Product 2", 29.99, 2));
+        productList.add(new Product("Product 3", 39.99, 3));
+        productList.add(new Product("Product 4", 49.99, 4));
+        productList.add(new Product("Product 5", 59.99, 5));
+    }
     public void AddProduct(Product product){
         productList.add(product);
     }
@@ -35,12 +43,12 @@ public class ProductMannager {
            throw new RuntimeException("Product not found");
        }
     }
-    public void updateProduct(String name, int price) {
+    public void updateProduct(String oldname,String newname, double newprice) {
         int updated=0;
         for (Product product : productList) {
-            if (product.getName().equals(name) ) {
-                product.setName(name);
-                product.setPrice(price);
+            if (product.getName().equals(oldname) ) {
+                product.setName(newname);
+                product.setPrice(newprice);
                 updated=1;
                 break;
             }

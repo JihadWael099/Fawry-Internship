@@ -33,22 +33,22 @@
 	</dependencies>
 
 	<build>
-<!--		<finalName>ProductsMannager-JAXRS</finalName>-->
+		<finalName>ProductsMannager-JAXRS</finalName> <!-- Optional: Custom WAR file name -->
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>${compiler-plugin.version}</version>
 			</plugin>
+
 			<plugin>
 				<artifactId>maven-war-plugin</artifactId>
 				<version>${war-plugin.version}</version>
 				<configuration>
-					<failOnMissingWebXml>false</failOnMissingWebXml>
+					<failOnMissingWebXml>false</failOnMissingWebXml> <!-- Skip web.xml validation -->
 				</configuration>
 			</plugin>
 
-			<!-- Execute 'mvn clean package wildfly:dev' to run the application. -->
 			<plugin>
 				<groupId>org.wildfly.plugins</groupId>
 				<artifactId>wildfly-maven-plugin</artifactId>
@@ -57,6 +57,13 @@
 					<version>${wildfly.version}</version>
 					<server-config>standalone-full.xml</server-config>
 				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>dev</goal> <!-- Run in development mode -->
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>
