@@ -11,50 +11,51 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-@WebServlet("/addProduct")
-public class addProduct extends HttpServlet {
-    private productMannager productMannager = new productMannager();
+@WebServlet("/update")
+public class updateProduct extends HttpServlet {
+    private Mannager.productMannager productMannager = new productMannager();
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html");
-
-        try (PrintWriter out = response.getWriter()) {
+        PrintWriter out = response.getWriter();
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Add Product</title>");
+            out.println("<title>Update Product</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Add a New Product</h1>");
-            out.println("<form action=\"addProduct\" method=\"post\">");
-            out.println("<label for=\"name\">Product Name:</label>");
-            out.println("<input type=\"text\" id=\"name\" name=\"name\" required>");
+            out.println("<h1>Update Product</h1>");
+            out.println("<form action=\"update\" method=\"post\">");
+            out.println("<label for=\"Oldname\">Old Name:</label>");
+            out.println("<input type=\"text\" id=\"Oldname\" name=\"Oldname\" required>");
             out.println("<br><br>");
+
+        out.println("<label for=\"Newname\">New Name:</label>");
+        out.println("<input type=\"text\" id=\"Newname\" name=\"Newname\" required>");
+        out.println("<br><br>");
             out.println("<label for=\"price\">Product Price:</label>");
             out.println("<input type=\"number\" id=\"price\" name=\"price\" required>");
             out.println("<br><br>");
-            out.println("<button type=\"submit\">Add Product</button>");
+            out.println("<button type=\"submit\">update Product</button>");
             out.println("</form>");
             out.println("<br><br>");
             out.println("</body>");
             out.println("</html>");
-        }
-    }
 
+    }
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String name = request.getParameter("name");
+        String Oldname = request.getParameter("Oldname");
+        String Newname = request.getParameter("Newname");
         String priceString = request.getParameter("price");
 
         try {
-            int price = Integer.parseInt(priceString);
-            productMannager.addProduct(new Product(name, price, productMannager.getAllProducts().size() + 1));
+            double price = Double.parseDouble(priceString);
+            productMannager.updateProduct(Oldname,Newname,price);
             response.sendRedirect("getAllProduct");
-
         } catch (RuntimeException e) {
             response.sendRedirect("error?message=" + e.getMessage());
-            response.getWriter().println("<a href=\"addProduct\">Go back and try again</a>");
         }
     }
 }

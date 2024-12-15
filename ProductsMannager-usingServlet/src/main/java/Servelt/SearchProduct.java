@@ -61,7 +61,8 @@ public class SearchProduct extends HttpServlet
                 out.println("</tr>");
                 out.println("</table>");
             }
-            else {
+            else
+            {
                 out.println("<p style='color:red;'>No product found with the name: " + name + "</p>");
             }
 

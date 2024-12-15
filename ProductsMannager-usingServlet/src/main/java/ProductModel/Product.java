@@ -3,7 +3,7 @@ package ProductModel;
 public class Product {
 
     private String name;
-    private int price;
+    private double price;
     private int id;
 
     public Product(String name, int price, int id){
@@ -27,7 +27,7 @@ public class Product {
     public void setId(int id) {
         this.id = id;
     }
-    public int getPrice() {
+    public double getPrice() {
         return price;
     }
 

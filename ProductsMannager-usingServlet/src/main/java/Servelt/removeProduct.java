@@ -41,14 +41,15 @@ public class removeProduct extends HttpServlet {
     }
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String name = request.getParameter("name");
-        for(Product product:productMannager.getAllProducts()){
-            if(product.getName().equals(name)){
-                productMannager.DeleteProduct(product.getId());
-
-            }
-        }
-        response.sendRedirect("getAllProduct");
+     try{
+         String name=request.getParameter("name");
+         productMannager.DeleteProduct(name);
+         response.sendRedirect("/getAllProduct");
+     }
+     catch (Exception e)
+     {
+         response.sendRedirect("error?message=" + e.getMessage());
+     }
     }
 }
 

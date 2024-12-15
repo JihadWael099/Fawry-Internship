@@ -9,31 +9,32 @@ public class productMannager
     private static  List<Product> productList = new ArrayList<>();
 
     public void addProduct(Product product){
-        productList.add(product);
+        if(!productList.contains(product)){
+            if(product.getName().length()>=100)throw new RuntimeException("Product name too long");
+            if(product.getPrice()<0)throw new RuntimeException("negative price not allowed");
+            productList.add(product);
+        }
+        else throw new RuntimeException("product already exists");
     }
-    public void DeleteProduct(int id){
-      for(int i=0;i<productList.size();i++){
-          if(productList.get(i).getId()==id)
-          {
-              productList.remove(i);
-              break;
-          }
+    public void DeleteProduct(String name){
+      for(Product product : productList){
+          if(!product.getName().equals(name))throw new RuntimeException("Product not found to delete");
+          productList.remove(product);
       }
-
     }
-    public boolean updateProduct(int id, String name, int price) {
-        for (Product product : productList) {
-            if (product.getId() == id) {
-                product.setName(name);
-                product.setPrice(price);
-                return true;
+    public void updateProduct(String oldname,String newname,double newprice) {
+        for(Product product : productList){
+            if(product.getName().equals(oldname)){
+                if(newname.length()>=100)throw new RuntimeException("Product name too long");
+                if(product.getPrice()<0)throw new RuntimeException("negative price not allowed");
+                product.setName(newname);
+                product.setPrice((int) newprice);
             }
         }
-        return false;
     }
-    public Product searchProduct(int id) {
+    public Product searchProduct(String name) {
         for (Product product : productList) {
-            if (product.getId() == id) {
+            if (product.getName().equals(name)) {
                 return product;
             }
         }
