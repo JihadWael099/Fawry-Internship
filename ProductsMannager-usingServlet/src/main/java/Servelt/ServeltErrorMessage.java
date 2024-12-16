@@ -15,8 +15,6 @@ public class ServeltErrorMessage  extends HttpServlet
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String error = request.getParameter("message");
-//        String actionMessage=request.getParameter("actionMessage");
-//        response.getWriter().println("<a href=\"\">Go back and try again</a>");
         response.getWriter().println("<h1 style='color:red;>Error: " + error + "</h1>");
     }
 

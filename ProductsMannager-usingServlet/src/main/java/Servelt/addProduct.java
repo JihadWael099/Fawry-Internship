@@ -54,7 +54,7 @@ public class addProduct extends HttpServlet {
 
         } catch (RuntimeException e) {
             response.sendRedirect("error?message=" + e.getMessage());
-            response.getWriter().println("<a href=\"addProduct\">Go back and try again</a>");
+//            response.getWriter().println("<a href=\"addProduct\">Go back and try again</a>");
         }
     }
 }

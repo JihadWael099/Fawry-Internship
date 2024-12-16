@@ -16,7 +16,6 @@ public class AccountMannagerTest {
         Assertions.assertEquals("success", accountManager.withdraw(customer, 50));
         Assertions.assertEquals(50,customer.getBalance());
     }
-
     @Test
     void GivenCustomerWithBalanceWhenWithdrawWithNotCreditAllowed_theninsufficient(){
         Customer customer=new Customer();
@@ -26,6 +25,24 @@ public class AccountMannagerTest {
         Assertions.assertEquals(100,customer.getBalance());
     }
     @Test
+    void GivenCustomerWithBalanceWhenWithdrawWithNotCreditAllowed_success(){
+        Customer customer=new Customer();
+        customer.setBalance(100);
+        customer.setCreditAllowed(false);
+        Assertions.assertEquals("success",accountManager.withdraw(customer,100));
+        Assertions.assertEquals(0,customer.getBalance());
+    }
+    @Test
+    void GivenCustomerWithBalanceWhenWithdrawWithNegativeorZeroValue_thenNegativeValueNotAllowed(){
+        Customer customer=new Customer();
+        customer.setBalance(100);
+        customer.setCreditAllowed(false);
+        Assertions.assertEquals("zero or negative value not allowed",accountManager.withdraw(customer,-100));
+        Assertions.assertEquals(100,customer.getBalance());
+    }
+
+
+    @Test
     void GivenCustomerWithBalanceWhenWithdrawWithCreditAllowed_thenSuccess(){
         Customer customer=new Customer();
         customer.setBalance(100);
@@ -33,6 +50,8 @@ public class AccountMannagerTest {
         Assertions.assertEquals("success",accountManager.withdraw(customer,200));
         Assertions.assertEquals(-100,customer.getBalance());
     }
+
+
 
     @Test
     void GivenCustomerWithBalanceWhenWithdraw_thenMaximumCreditExceeded(){
@@ -43,6 +62,8 @@ public class AccountMannagerTest {
         Assertions.assertEquals("maximum credit exceeded",accountManager.withdraw(customer,200));
         Assertions.assertEquals(-1000,customer.getBalance());
     }
+
+
     @Test
     void GivenCustomerWithBalanceWhenWithdraw_thenMaximumCreditExceededVIP(){
         Customer customer=new Customer();
